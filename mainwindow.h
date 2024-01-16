@@ -13,7 +13,8 @@ class QLineEdit;
 class QComboBox;
 class QLabel;
 class QGroupBox;
-
+class QTableView;
+class QColumnView;
 
 
 QT_END_NAMESPACE
@@ -36,6 +37,9 @@ private:
     QSortFilterProxyModel* proxyModel;
     QTreeView* sourceView;
     QTreeView* proxyView;
+    QTableView* proxyTableView;
+    QColumnView* proxyColumnView;
+
     QLineEdit* filterPatternLineEdit;
     QComboBox* filterColumnComboBox;
     QLabel* filterPatternLabel;

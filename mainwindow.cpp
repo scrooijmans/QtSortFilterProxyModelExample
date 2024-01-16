@@ -9,12 +9,18 @@ MainWindow::MainWindow(QWidget *parent)
     // This is the model that willn translate to the UI.
     proxyModel = new QSortFilterProxyModel;
     sourceView = new QTreeView;
+    proxyTableView = new QTableView;
+    proxyColumnView = new QColumnView;
+
     sourceView->setRootIsDecorated(false);
 
     // Add a visual representation of the proxy model
     proxyView = new QTreeView;
     proxyView->setRootIsDecorated(false);
     proxyView->setModel(proxyModel);
+    proxyColumnView->setModel(proxyModel);
+    proxyTableView->setModel(proxyModel);
+
     proxyView->setSortingEnabled(true);
 
     filterPatternLineEdit = new QLineEdit;
@@ -37,13 +43,13 @@ MainWindow::MainWindow(QWidget *parent)
     sourceLayout->addWidget(sourceView);
     sourceGroupBox->setLayout(sourceLayout);
 
-    // Create  layout for the proxy
+    // Create a layout for the proxy
     QGridLayout *proxyLayout = new QGridLayout;
-    proxyLayout->addWidget(proxyView, 0,0,1,3);
-
+    proxyLayout->addWidget(proxyView, 0, 0, 1, 2);
+    proxyLayout->addWidget(proxyTableView, 0, 2, 1, 2);  // Add the QTableView
+    proxyLayout->addWidget(proxyColumnView, 0, 4, 1, 2);  // Add the QColumnView
     proxyLayout->addWidget(filterPatternLabel, 1, 0);
     proxyLayout->addWidget(filterPatternLineEdit, 1, 1, 1, 2);
-
     proxyLayout->addWidget(filterColumnLabel, 3, 0);
     proxyLayout->addWidget(filterColumnComboBox, 3, 1, 1, 2);
     proxyGroupBox->setLayout(proxyLayout);
@@ -62,6 +68,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(filterColumnComboBox, &QComboBox::currentIndexChanged, this, &MainWindow::filterColumnChanged);
 
 
+    resize(1600, 1200);
+
 }
 
 MainWindow::~MainWindow()
@@ -71,6 +79,8 @@ MainWindow::~MainWindow()
 void MainWindow::setSourceModel(QAbstractItemModel *model)
 {
     proxyModel->setSourceModel(model);
+    proxyModel->setSortRole(Qt::DisplayRole);  // Set the sort role to Qt::DisplayRole
+
     sourceView->setModel(model);
 }
 
