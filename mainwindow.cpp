@@ -12,6 +12,14 @@ MainWindow::MainWindow(QWidget *parent)
     proxyTableView = new QTableView;
     proxyColumnView = new QColumnView;
 
+
+    // Labels for different views
+    QLabel* sourceViewLabel = new QLabel(tr("Source View:"));
+    QLabel* proxyViewLabel = new QLabel(tr("Proxy View:"));
+    QLabel* proxyTableLabel = new QLabel(tr("Proxy Table View:"));
+    QLabel* proxyColumnLabel = new QLabel(tr("Proxy Column View:"));
+
+
     sourceView->setRootIsDecorated(false);
 
     // Add a visual representation of the proxy model
@@ -41,15 +49,19 @@ MainWindow::MainWindow(QWidget *parent)
     // Create a layout for the source model
     QHBoxLayout *sourceLayout = new QHBoxLayout;
     sourceLayout->addWidget(sourceView);
+
     sourceGroupBox->setLayout(sourceLayout);
 
-    // Create a layout for the proxy
+
     QGridLayout *proxyLayout = new QGridLayout;
-    proxyLayout->addWidget(proxyView, 0, 0, 1, 2);
-    proxyLayout->addWidget(proxyTableView, 0, 2, 1, 2);  // Add the QTableView
-    proxyLayout->addWidget(proxyColumnView, 0, 4, 1, 2);  // Add the QColumnView
-    proxyLayout->addWidget(filterPatternLabel, 1, 0);
-    proxyLayout->addWidget(filterPatternLineEdit, 1, 1, 1, 2);
+    proxyLayout->addWidget(proxyViewLabel, 0, 0, 1, 2);  // Add label
+    proxyLayout->addWidget(proxyView, 1, 0, 1, 2);
+    proxyLayout->addWidget(proxyTableLabel, 0, 2, 1, 2);  // Add label
+    proxyLayout->addWidget(proxyTableView, 1, 2, 1, 2);  // Add the QTableView
+    proxyLayout->addWidget(proxyColumnLabel, 0, 4, 1, 2);  // Add label
+    proxyLayout->addWidget(proxyColumnView, 1, 4, 1, 2);  // Add the QColumnView
+    proxyLayout->addWidget(filterPatternLabel, 2, 0);
+    proxyLayout->addWidget(filterPatternLineEdit, 2, 1, 1, 2);
     proxyLayout->addWidget(filterColumnLabel, 3, 0);
     proxyLayout->addWidget(filterColumnComboBox, 3, 1, 1, 2);
     proxyGroupBox->setLayout(proxyLayout);
